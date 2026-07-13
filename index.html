@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>STEINER｜YDA 週次レポート 7/6–7/12</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Barlow+Semi+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root{--ink:#14161B;--paper:#F4F5F7;--card:#FFFFFF;--gold:#C29A45;--gold-soft:#F6EFDD;--blue:#1F6FB2;
+    --t1:#1A1C20;--t2:#585E67;--t3:#8A9099;--line:#E5E8EC;--grid:#EDEFF2;
+    --good:#1E8E5A;--good-bg:#E7F4EC;--bad:#C6413B;--bad-bg:#FBEBEA;--neu:#5C6470;--neu-bg:#EEF1F4;}
+  *{box-sizing:border-box}html,body{margin:0}
+  body{background:var(--paper);color:var(--t1);font-family:"Noto Sans JP",sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+  .num{font-family:"Barlow Semi Condensed","Noto Sans JP",sans-serif;font-feature-settings:"tnum";letter-spacing:.01em}
+  .wrap{max-width:1060px;margin:0 auto;padding:0 20px 64px}
+  header{background:var(--ink);color:#fff;padding:26px 0 24px;border-bottom:3px solid var(--gold)}
+  .hd{max-width:1060px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:12px}
+  .tri{width:0;height:0;border-left:11px solid transparent;border-right:11px solid transparent;border-top:16px solid var(--blue)}
+  .brand .nm{font-weight:700;letter-spacing:.22em;font-size:19px}.brand .tag{color:#B9BEC6;font-size:11px;letter-spacing:.14em;margin-top:1px}
+  .eyebrow{color:var(--gold);font-size:11px;letter-spacing:.28em;font-weight:600;margin:0 0 4px}
+  h1{font-size:21px;font-weight:700;margin:0}
+  .meta{text-align:right;font-size:12.5px;color:#C3C8D0}.meta b{color:#fff;font-weight:600}.meta .num{font-size:15px}
+  section{margin-top:34px}
+  .sec-h{display:flex;align-items:baseline;gap:12px;margin:0 0 14px}
+  .sec-h .idx{font-family:"Barlow Semi Condensed";font-weight:700;color:var(--gold);font-size:14px;letter-spacing:.1em}
+  .sec-h h2{font-size:16px;font-weight:700;margin:0}.sec-h .sub{color:var(--t3);font-size:12px;margin-left:auto}
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 16px 14px}
+  .kpi .lb{font-size:12px;color:var(--t2);font-weight:500}
+  .kpi .v{font-size:30px;font-weight:600;margin:2px 0 0;line-height:1.1}
+  .kpi .v small{font-size:15px;color:var(--t3);font-weight:500;margin-left:2px}
+  .kpi .row{display:flex;align-items:center;justify-content:space-between;margin-top:8px}
+  .kpi .prev{font-size:11px;color:var(--t3)}.kpi .prev .num{font-size:12px;color:var(--t2)}
+  .chip{font-size:12px;font-weight:600;padding:2px 8px;border-radius:20px;display:inline-flex;align-items:center;gap:3px}
+  .chip.bad{color:var(--bad);background:var(--bad-bg)}.chip.good{color:var(--good);background:var(--good-bg)}.chip.neu{color:var(--neu);background:var(--neu-bg)}
+  .kpi.hl{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold-soft)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+  .note{font-size:12px;color:var(--t3);margin-top:10px}
+  .chart-h{font-size:13px;font-weight:600;color:var(--t2);margin:0 0 2px}.chart-sub{font-size:12px;color:var(--t3);margin:0 0 12px}
+  .callout{display:inline-block;font-size:12px;color:#7a5f16;background:var(--gold-soft);border-radius:6px;padding:3px 9px;margin-top:10px}
+  table.wk{width:100%;border-collapse:collapse;font-size:13px;margin-top:4px}
+  table.wk th,table.wk td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line)}
+  table.wk th{color:var(--t2);font-weight:600;font-size:11.5px;border-bottom:1.5px solid var(--line)}
+  table.wk td:first-child,table.wk th:first-child{text-align:left}
+  table.wk tr:last-child td{border-bottom:none}
+  table.wk .peak{color:var(--good);font-weight:600}.wk .low{color:var(--bad);font-weight:600}
+  table.wk tbody tr.cur{background:var(--gold-soft)}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .ac{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .ac h3{font-size:13px;margin:0 0 8px;font-weight:700;display:flex;align-items:center;gap:7px}
+  .ac h3 .dot{width:8px;height:8px;border-radius:2px;display:inline-block}
+  .ac ul{margin:0;padding-left:0;list-style:none}
+  .ac li{font-size:13px;color:var(--t1);padding:5px 0 5px 16px;position:relative;border-top:1px solid #F1F3F5}
+  .ac li:first-child{border-top:none}
+  .ac li::before{content:"";position:absolute;left:2px;top:12px;width:5px;height:5px;border-radius:50%;background:var(--t3)}
+  .ac li b{font-weight:700}.ac.act li::before{background:var(--gold)}
+  .tagline{font-size:13px;color:var(--t2);background:var(--card);border:1px solid var(--line);border-left:4px solid var(--bad);border-radius:0 10px 10px 0;padding:13px 16px}
+  footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--t3);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  @media(max-width:720px){.kpis{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.hd{align-items:flex-start}.meta{text-align:left}}
+  @media print{body{background:#fff}.kpi,.card,.ac,.tagline{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><div class="hd">
+  <div><div class="brand"><span class="tri"></span><div><div class="nm">STEINER</div><div class="tag">NOTHING ESCAPES YOU</div></div></div></div>
+  <div style="flex:1;min-width:220px"><p class="eyebrow">WEEKLY REPORT ・ Yahoo! ディスプレイ広告</p><h1>YDA 週次パフォーマンスレポート</h1></div>
+  <div class="meta"><div>対象週　<b class="num">2026/7/6 – 7/12</b></div><div>前週比　<span class="num">6/29 – 7/5</span></div><div style="margin-top:4px;color:#8b909a">報告日　2026/7/13(月)</div></div>
+</div></header>
+<div class="wrap">
+  <section>
+    <div class="sec-h"><span class="idx">01</span><h2>対象週サマリー</h2><span class="sub">7/6–7/12 ／ 前週比</span></div>
+    <div class="kpis">
+      <div class="kpi"><div class="lb">表示回数</div><div class="v num">106,035</div><div class="row"><span class="chip neu">↑ +7.0%</span><span class="prev">前週 <span class="num">99,105</span></span></div></div>
+      <div class="kpi"><div class="lb">クリック数</div><div class="v num">376</div><div class="row"><span class="chip bad">↓ −34.4%</span><span class="prev">前週 <span class="num">573</span></span></div></div>
+      <div class="kpi hl"><div class="lb">CTR</div><div class="v num">0.35<small>%</small></div><div class="row"><span class="chip bad">↓ −0.23pt</span><span class="prev">前週 <span class="num">0.58%</span></span></div></div>
+      <div class="kpi"><div class="lb">コスト</div><div class="v num">¥7,004</div><div class="row"><span class="chip neu">→ ±0%</span><span class="prev">前週 <span class="num">¥7,000</span></span></div></div>
+      <div class="kpi"><div class="lb">平均CPC</div><div class="v num">¥19</div><div class="row"><span class="chip bad">↑ +55%</span><span class="prev">前週 <span class="num">¥12</span></span></div></div>
+      <div class="kpi hl"><div class="lb">ビューアブル率</div><div class="v num">23.9<small>%</small></div><div class="row"><span class="chip bad">↓ −7.5pt</span><span class="prev">前週 <span class="num">31.4%</span></span></div></div>
+    </div>
+    <div class="tagline" style="margin-top:14px"><b>総評：</b>7/1テコ入れによる先週の回復は<b>続かず、今週は再び悪化</b>。CTRは0.35%とテコ入れ前の水準へ戻り、CPCは¥19へ上昇、クリックは−34%。さらに<b>ビューアブル率が23.9%まで低下（5週で最低）</b>。表示は増え続ける一方で「見られない配信」が増えており、<b>安く質の低い配信面を買い続けている構造的な問題</b>が濃厚。クリエイティブ刷新の効果も1週で剥落した。<b>なお本日、配信面3面の除外・フリークエンシー上限などの対策を実施済み</b>（下部参照）。（CV・売上はAmazon送客のため計測対象外）</div>
+  </section>
+  <section>
+    <div class="sec-h"><span class="idx">02</span><h2>5週間の推移</h2><span class="sub">週次 CTR ／ ビューアブル率</span></div>
+    <div class="card">
+      <p class="chart-h">週次CTRの推移 ― 回復は1週で剥落</p>
+      <p class="chart-sub">第2週ピーク → 失速 → 7/1テコ入れで一時回復 → 今週また低下（0.58%→0.35%）。</p>
+      <div style="position:relative;width:100%;height:280px"><canvas id="ctr" role="img" aria-label="週次CTRの折れ線グラフ。ピーク後に失速、7/1テコ入れで一時回復も今週再び低下。"></canvas></div>
+      <span class="callout">7/1の施策効果は1週のみ。単発の差し替えでは疲弊が止められていない。</span>
+    </div>
+    <div class="grid2" style="margin-top:16px">
+      <div class="card">
+        <p class="chart-h">ビューアブル率の推移（%）</p>
+        <p class="chart-sub">第2週(39%)以降、右肩下がりで今週24%。配信面の質が低下し続けている。</p>
+        <div style="position:relative;width:100%;height:210px"><canvas id="vr" role="img" aria-label="週次ビューアブル率の折れ線グラフ。39%から24%へ右肩下がり。"></canvas></div>
+      </div>
+      <div class="card">
+        <p class="chart-h">週次サマリー（月〜日）</p>
+        <table class="wk">
+          <thead><tr><th>週</th><th>表示</th><th>クリック</th><th>CTR</th><th>CPC</th><th>View率</th></tr></thead>
+          <tbody>
+            <tr><td>6/8–14</td><td class="num">65,132</td><td class="num">489</td><td class="num">0.75%</td><td class="num">¥13</td><td class="num">29.2%</td></tr>
+            <tr><td>6/15–21</td><td class="num">66,081</td><td class="num peak">684</td><td class="num peak">1.04%</td><td class="num peak">¥11</td><td class="num peak">39.4%</td></tr>
+            <tr><td>6/22–28</td><td class="num">84,305</td><td class="num">321</td><td class="num">0.38%</td><td class="num">¥22</td><td class="num">37.1%</td></tr>
+            <tr><td>6/29–7/5</td><td class="num">99,105</td><td class="num">573</td><td class="num">0.58%</td><td class="num">¥12</td><td class="num">31.4%</td></tr>
+            <tr class="cur"><td>7/6–12</td><td class="num">106,035</td><td class="num low">376</td><td class="num low">0.35%</td><td class="num low">¥19</td><td class="num low">23.9%</td></tr>
+          </tbody>
+        </table>
+        <p class="note">表示は毎週増加（65k→106k）だが、CTR・View率はピーク後低下。増えているのは“刺さらない在庫”。</p>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="sec-h"><span class="idx">03</span><h2>分析</h2><span class="sub">良化点・改善点</span></div>
+    <div class="grid2">
+      <div class="ac"><h3><span class="dot" style="background:var(--good)"></span>良かった点</h3>
+        <ul>
+          <li>今週は明確な良化に乏しい。強いて言えば<b>リーチ（表示）は+7%と過去最多</b>を更新。</li>
+          <li>ただし<b>質は伴わず</b>（CTR・View率とも低下）、素直な成果とは言い難い。</li>
+        </ul></div>
+      <div class="ac"><h3><span class="dot" style="background:var(--bad)"></span>改善したほうが良い点</h3>
+        <ul>
+          <li><b>配信面の質（最優先）</b>：View率が39%→24%へ低下し続け、表示は増加。低質・非可視の在庫を買い続けている疑い。</li>
+          <li><b>クリエイティブ疲れの再発</b>：刷新効果が1週で剥落。単発差し替えでなく定期ローテが必要。</li>
+          <li><b>日別の裏づけ</b>：表示が多い日ほどCTR低（7/10:20,397表示→0.18%）。逆に7/8は4,076表示→1.50%。</li>
+        </ul></div>
+    </div>
+  </section>
+  <section>
+    <div class="sec-h"><span class="idx">04</span><h2>対応と今後の動き</h2></div>
+    <div class="grid2">
+      <div class="ac"><h3><span class="dot" style="background:var(--neu)"></span>今週の対応（7/6–12）</h3>
+        <ul>
+          <li>大きな変更は<b>なし</b>。7/1の施策設定のまま継続。</li>
+          <li>結果、刷新効果が剥落し<b>CTR・View率とも悪化</b>。</li>
+        </ul></div>
+      <div class="ac act"><h3><span class="dot" style="background:var(--gold)"></span>本日実施した対応（7/13）</h3>
+        <ul>
+          <li><b>低品質な配信先3面を除外</b>：bepal.net／bravo-m.futabanet.jp／news.yahoo.co.jp/prc（表示は多いがCTRがほぼ0の面）。</li>
+          <li><b>フリークエンシー上限を設定</b>：同一ユーザーへの過剰表示＝疲弊を抑制。</li>
+          <li><b>7/1設定を点検</b>：70歳以上の除外・性別入札が維持されているか確認。</li>
+        </ul></div>
+    </div>
+    <div class="ac" style="margin-top:16px"><h3><span class="dot" style="background:var(--blue)"></span>今後の動き（来週の確認と分岐）</h3>
+      <ul>
+        <li><b>効果測定</b>：来週(7/13–19)のデータで、CTR（0.35%→改善したか）／ビューアブル率（23.9%→下げ止まり・反転したか）／CPC（¥19→低下したか）を確認。あわせて配信先別レポートを再取得し、除外3面が消えたか＆「不明な配信先」の比率が下がったかを見る。</li>
+        <li><b>改善した場合</b>：方針を継続し、次のムダ面（表示500以上・CTR0.1%未満）を追加除外して、じわじわ質を上げる。</li>
+        <li><b>不明面がまだ多い／改善が弱い場合</b>：配信面タイプの限定（提携パートナー面をオフ）を検討。リーチは落ちるが質は上がる。</li>
+        <li><b>CTRが戻ってもまた数日で落ちる場合</b>：クリエイティブ疲れが主因 → Dir.1／Dir.2＋新規案の定期ローテを優先。</li>
+      </ul></div>
+  </section>
+  <footer>
+    <span>データ出典：Yahoo!広告 広告レポート（2026/6/8–7/12・日別）／キャンペーン：STEINER_認知獲得</span>
+    <span>※CV・売上・ROASはAmazon送客のためYahoo側で計測不可。評価はCTR・CPC・リーチで実施。</span>
+  </footer>
+</div>
+<script>
+(function(){
+  const T3='#8A9099',GRID='#EDEFF2',BLUE='#1F6FB2',GOLD='#C29A45',BAD='#C6413B',GOOD='#1E8E5A';
+  const labels=['6/8–14','6/15–21','6/22–28','6/29–7/5','7/6–12'];
+  const ctr=[0.75,1.04,0.38,0.58,0.35];
+  const vr=[29.2,39.4,37.1,31.4,23.9];
+  const mark71={id:'mark71',afterDatasetsDraw(c){
+    const a=c.chartArea,x=c.scales.x,ctx=c.ctx;const px=x.getPixelForValue(3);
+    ctx.save();ctx.fillStyle='#A97E22';ctx.font='700 10px "Noto Sans JP",sans-serif';ctx.textAlign='center';
+    ctx.fillText('▲ 7/1 テコ入れ',px,a.top+10);ctx.restore();
+  }};
+  new Chart(document.getElementById('ctr'),{type:'line',plugins:[mark71],
+    data:{labels:labels,datasets:[{data:ctr,borderColor:BLUE,backgroundColor:'rgba(31,111,178,0.08)',fill:true,borderWidth:2.6,tension:.25,
+      pointRadius:5,pointHoverRadius:7,pointBackgroundColor:[BLUE,GOOD,BLUE,GOLD,BAD],pointBorderColor:'#fff',pointBorderWidth:2}]},
+    options:{responsive:true,maintainAspectRatio:false,layout:{padding:{top:16}},
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'CTR '+c.parsed.y.toFixed(2)+'%'}}},
+      scales:{y:{beginAtZero:true,grid:{color:GRID},border:{display:false},ticks:{color:T3,callback:v=>v+'%'}},
+              x:{grid:{display:false},border:{color:'#D7DBE0'},ticks:{color:T3,font:{size:11}}}}}});
+  new Chart(document.getElementById('vr'),{type:'line',
+    data:{labels:labels,datasets:[{data:vr,borderColor:'#B4842E',backgroundColor:'rgba(194,154,69,0.10)',fill:true,borderWidth:2.4,tension:.25,
+      pointRadius:4,pointHoverRadius:6,pointBackgroundColor:'#B4842E',pointBorderColor:'#fff',pointBorderWidth:1.5}]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'View率 '+c.parsed.y.toFixed(1)+'%'}}},
+      scales:{y:{beginAtZero:true,grid:{color:GRID},border:{display:false},ticks:{color:T3,callback:v=>v+'%'}},
+              x:{grid:{display:false},border:{color:'#D7DBE0'},ticks:{color:T3,font:{size:10}}}}}});
+})();
+</script>
+</body>
+</html>
